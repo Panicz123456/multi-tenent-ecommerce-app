@@ -4,8 +4,9 @@ import Link from "next/link";
 import { toast } from "sonner";
 import { useForm } from "react-hook-form";
 import { Poppins } from "next/font/google";
-import { useMutation } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { cn } from "@/lib/utils";
 import { useTRPC } from "@/trpc/client";
@@ -20,7 +21,6 @@ import {
 } from "@/components/ui/form";
 
 import { authLoginSchema, authLoginSchemaType } from "../../schema";
-import { useRouter } from "next/navigation";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -31,9 +31,12 @@ export const SignInView = () => {
   const router = useRouter();
 
   const trpc = useTRPC();
+  const queryClient = useQueryClient();
+
   const login = useMutation(
     trpc.auth.login.mutationOptions({
-      onSuccess: () => {
+      onSuccess: async () => {
+        await queryClient.invalidateQueries(trpc.auth.session.queryFilter());
         router.push("/");
         toast.success("Login successfully!");
       },
@@ -62,11 +65,13 @@ export const SignInView = () => {
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="flex flex-col gap-7 p-4 lg:p-16">
+            className="flex flex-col gap-7 p-4 lg:p-16"
+          >
             <div className="flex items-center justify-between mb-8">
               <Link href="/">
                 <span
-                  className={cn("text-2xl font-semibold", poppins.className)}>
+                  className={cn("text-2xl font-semibold", poppins.className)}
+                >
                   funroad
                 </span>
               </Link>
@@ -74,15 +79,14 @@ export const SignInView = () => {
                 asChild
                 variant="ghost"
                 size="sm"
-                className="text-base border-none underline">
+                className="text-base border-none underline"
+              >
                 <Link prefetch href="/sign-up">
                   Sign up
                 </Link>
               </Button>
             </div>
-            <h1 className="text-3xl font-medium">
-              Welcome back to funroad.
-            </h1>
+            <h1 className="text-3xl font-medium">Welcome back to funroad.</h1>
             <FormField
               name="email"
               render={({ field }) => (
