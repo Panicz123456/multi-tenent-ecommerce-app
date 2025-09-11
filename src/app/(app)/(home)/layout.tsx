@@ -1,13 +1,14 @@
-import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import { Suspense } from "react";
+import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 
-import { Footer } from "./_components/footer";
-import { Navbar } from "./_components/navbar";
 import { getQueryClient, trpc } from "@/trpc/server";
+
+import { Footer } from "@/modules/home/ui/components/footer";
+import { Navbar } from "@/modules/home/ui/components/navbar";
 import {
   SearchFilters,
-  SearchFiltersLoading,
-} from "./_components/search-filters";
+  SearchFiltersSkeleton,
+} from "@/modules/home/ui/components/search-filters";
 
 interface Props {
   children: React.ReactNode;
@@ -16,13 +17,13 @@ interface Props {
 const Layout = async ({ children }: Props) => {
   const queryClient = getQueryClient();
   // Use await instead of void if you get an error
-  void queryClient.prefetchQuery(trpc.categories.getMany.queryOptions());
+  await queryClient.prefetchQuery(trpc.categories.getMany.queryOptions());
 
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
       <HydrationBoundary state={dehydrate(queryClient)}>
-        <Suspense fallback={<SearchFiltersLoading />}>
+        <Suspense fallback={<SearchFiltersSkeleton />}>
           <SearchFilters />
         </Suspense>
       </HydrationBoundary>

@@ -58,7 +58,7 @@ export const CategoriesSidebar = ({
   }
 
   const handleBackClick = () => {
-    if (parentCategories) { 
+    if (parentCategories) {
       setParentCategories(null)
       setSelectedCategory(null)
     }
