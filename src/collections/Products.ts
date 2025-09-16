@@ -15,16 +15,22 @@ export const Products: CollectionConfig = {
     {
       name: "price",
       type: "number",
-			required: true,
-			admin: { 
-				description: "Price in USD"
-			}
+      required: true,
+      admin: {
+        description: "Price in USD",
+      },
     },
     {
       name: "category",
       type: "relationship",
       relationTo: "categories",
       hasMany: false,
+    },
+    {
+      name: "tags",
+      type: "relationship",
+      relationTo: "tags",
+      hasMany: true,
     },
     {
       name: "image",
@@ -34,8 +40,8 @@ export const Products: CollectionConfig = {
     {
       name: "refoundPolicy",
       type: "select",
-			options: ["30-day", "14-day", "7-day", "3-day", "1-day", "no-refunds"],
-			defaultValue: "30-day"
+      options: ["30-day", "14-day", "7-day", "3-day", "1-day", "no-refunds"],
+      defaultValue: "30-day",
     },
   ],
 };
