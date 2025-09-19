@@ -24,6 +24,7 @@ export const ProductCard = ({
   price,
 }: ProductCardProps) => {
   return (
+    // TODO: change to real prodcts id page
     <Link href={`/product/${id}`}>
       <div className=" border rounded-md bg-white overflow-hidden h-full flex flex-col hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-shadow">
         <div className="relative aspect-square">
