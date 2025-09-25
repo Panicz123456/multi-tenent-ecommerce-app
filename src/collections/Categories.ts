@@ -37,4 +37,3 @@ export const Categories: CollectionConfig = {
     }
   ],
 }
-//  2:47
