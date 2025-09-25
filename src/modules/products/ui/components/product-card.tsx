@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { StarIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { generateTenantUrl } from "@/lib/utils";
+import { formatCurrency, generateTenantUrl } from "@/lib/utils";
 
 interface ProductCardProps {
   id: string;
@@ -35,7 +35,7 @@ export const ProductCard = ({
 
   return (
     // TODO: change to real prodcts id page
-    <Link href={`/product/${id}`}>
+    <Link href={`${generateTenantUrl(tenantSlug)}/products/${id}`}>
       <div className=" border rounded-md bg-white overflow-hidden h-full flex flex-col hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-shadow">
         <div className="relative aspect-square">
           <Image
@@ -72,10 +72,7 @@ export const ProductCard = ({
         <div className="p-4">
           <div className="relative px-2 py-1 border bg-pink-400 w-fit">
             <p className="text-sm font-medium">
-              {new Intl.NumberFormat("en-US", {
-                style: "currency",
-                currency: "USD",
-              }).format(Number(price))}
+              {formatCurrency(price)}
             </p>
           </div>
         </div>

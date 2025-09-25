@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { Button } from "@/components/ui/button";
 import { useProductFilters } from "../../hooks/use-product-filters";
@@ -17,7 +17,8 @@ export const ProductSort = () => {
             "bg-transparent border-transparent hover:border-border hover:bg-transparent"
         )}
         variant="secondary"
-        onClick={() => setFilters({ sort: "curated" })}>
+        onClick={() => setFilters({ sort: "curated" })}
+      >
         Curated
       </Button>
       <Button
@@ -28,7 +29,8 @@ export const ProductSort = () => {
             "bg-transparent border-transparent hover:border-border hover:bg-transparent"
         )}
         variant="secondary"
-        onClick={() => setFilters({ sort: "trending" })}>
+        onClick={() => setFilters({ sort: "trending" })}
+      >
         Trending
       </Button>
       <Button
@@ -39,8 +41,8 @@ export const ProductSort = () => {
             "bg-transparent border-transparent hover:border-border hover:bg-transparent"
         )}
         variant="secondary"
-				onClick={() => setFilters({ sort: "hot_and_new" })}
-			>
+        onClick={() => setFilters({ sort: "hot_and_new" })}
+      >
         Hot and new
       </Button>
     </div>
