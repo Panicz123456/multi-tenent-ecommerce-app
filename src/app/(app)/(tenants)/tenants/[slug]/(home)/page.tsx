@@ -5,7 +5,7 @@ import { DEFAULT_LIMIT } from "@/constants";
 import { getQueryClient, trpc } from "@/trpc/server";
 
 import { loadProductFilters } from "@/modules/products/searchParams";
-import { ProductListView } from "@/modules/products/ui/components/views/product-list-view";
+import { ProductListView } from "@/modules/products/ui/views/product-list-view";
 
 interface Props {
   searchParams: Promise<SearchParams>;
@@ -14,7 +14,8 @@ interface Props {
 
 const Page = async ({ searchParams, params }: Props) => {
   const { slug } = await params;
-  const filters = loadProductFilters(searchParams);
+  // add await repair error 
+  const filters = loadProductFilters(await searchParams);
 
   const queryClient = getQueryClient();
   void queryClient.prefetchInfiniteQuery(

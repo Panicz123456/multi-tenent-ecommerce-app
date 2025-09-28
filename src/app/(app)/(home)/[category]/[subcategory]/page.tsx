@@ -5,7 +5,7 @@ import { DEFAULT_LIMIT } from "@/constants";
 import { getQueryClient, trpc } from "@/trpc/server";
 
 import { loadProductFilters } from "@/modules/products/searchParams";
-import { ProductListView } from "@/modules/products/ui/components/views/product-list-view";
+import { ProductListView } from "@/modules/products/ui/views/product-list-view";
 
 interface Props {
 	params: Promise<{
