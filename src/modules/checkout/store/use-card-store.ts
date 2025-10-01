@@ -35,9 +35,10 @@ export const useCartStore = create<CartState>()(
           tenantCards: {
             ...state.tenantCards,
             [tenantSlug]: {
-							productsId: state.tenantCards[tenantSlug]?.productsId.filter(
-								(id) => id !== productId
-							) || [],
+              productsId:
+                state.tenantCards[tenantSlug]?.productsId.filter(
+                  (id) => id !== productId
+                ) || [],
             },
           },
         })),
@@ -46,7 +47,7 @@ export const useCartStore = create<CartState>()(
           tenantCards: {
             ...state.tenantCards,
             [tenantSlug]: {
-              productsId: []
+              productsId: [],
             },
           },
         })),

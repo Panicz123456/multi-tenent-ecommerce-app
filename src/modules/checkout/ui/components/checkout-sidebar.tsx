@@ -27,7 +27,7 @@ export const CheckoutSidebar = ({
         <Button
           variant="elevated"
           disabled={isPending}
-          onCanPlay={onCheckout}
+          onClick={onCheckout}
           size="lg"
           className="text-base w-full text-white bg-primary hover:bg-pink-400 hover:text-primary"
         >
