@@ -53,8 +53,7 @@ export const ProductList = ({ category, tenantSlug, narrowView }: Props) => {
         className={cn(
           "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4",
           narrowView && "lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-3"
-        )}
-      >
+        )}>
         {data?.pages
           .flatMap((page) => page.docs)
           .map((product) => (
@@ -65,8 +64,8 @@ export const ProductList = ({ category, tenantSlug, narrowView }: Props) => {
               imageUrl={product.image?.url}
               tenantSlug={product.tenant?.slug}
               tenantImageUrl={product.tenant?.image?.url}
-              reviewRating={3}
-              reviewCount={5}
+              reviewRating={product.reviewRating}
+              reviewCount={product.reviewCount}
               price={product.price}
             />
           ))}
@@ -77,8 +76,7 @@ export const ProductList = ({ category, tenantSlug, narrowView }: Props) => {
             disabled={isFetchingNextPage}
             onClick={() => fetchNextPage()}
             className="font-medium disabled:opacity-50 text-base bg-white"
-            variant="elevated"
-          >
+            variant="elevated">
             Load more...
           </Button>
         )}
@@ -93,8 +91,7 @@ export const ProductListSkeleton = ({ narrowView }: Props) => {
       className={cn(
         "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4",
         narrowView && "lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-3"
-      )}
-    >
+      )}>
       {Array.from({ length: DEFAULT_LIMIT }).map((_, index) => (
         <ProductCardSkeleton key={index} />
       ))}

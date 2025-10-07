@@ -2,7 +2,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { StarIcon } from "lucide-react";
 
-
 interface ProductCardProps {
   id: string;
   name: string;
