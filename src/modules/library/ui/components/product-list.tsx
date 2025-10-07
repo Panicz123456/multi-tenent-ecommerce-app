@@ -8,7 +8,6 @@ import { DEFAULT_LIMIT } from "@/constants";
 import { Button } from "@/components/ui/button";
 import { ProductCard, ProductCardSkeleton } from "./product-card";
 
-
 export const ProductList = () => {
   const trpc = useTRPC();
   const { data, hasNextPage, isFetchingNextPage, fetchNextPage } =
@@ -36,9 +35,7 @@ export const ProductList = () => {
 
   return (
     <>
-      <div
-        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4"
-      >
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
         {data?.pages
           .flatMap((page) => page.docs)
           .map((product) => (
@@ -49,8 +46,8 @@ export const ProductList = () => {
               imageUrl={product.image?.url}
               tenantSlug={product.tenant?.slug}
               tenantImageUrl={product.tenant?.image?.url}
-              reviewRating={3}
-              reviewCount={5}
+              reviewRating={product.reviewRating}
+              reviewCount={product.reviewCount}
             />
           ))}
       </div>
@@ -60,8 +57,7 @@ export const ProductList = () => {
             disabled={isFetchingNextPage}
             onClick={() => fetchNextPage()}
             className="font-medium disabled:opacity-50 text-base bg-white"
-            variant="elevated"
-          >
+            variant="elevated">
             Load more...
           </Button>
         )}
@@ -72,9 +68,7 @@ export const ProductList = () => {
 
 export const ProductListSkeleton = () => {
   return (
-    <div
-      className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4"
-    >
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
       {Array.from({ length: DEFAULT_LIMIT }).map((_, index) => (
         <ProductCardSkeleton key={index} />
       ))}

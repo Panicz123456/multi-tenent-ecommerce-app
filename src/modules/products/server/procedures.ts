@@ -1,11 +1,12 @@
 import { z } from "zod";
 import { Sort, Where } from "payload";
-import {headers as getHeaders} from 'next/headers' 
+import { headers as getHeaders } from "next/headers";
 
-import { baseProcedure, createTRPCRouter } from "@/trpc/init";
-import { Category, Media, Tenant } from "@/payload-types";
-import { sortValues } from "../searchParams";
 import { DEFAULT_LIMIT } from "@/constants";
+import { Category, Media, Tenant } from "@/payload-types";
+import { baseProcedure, createTRPCRouter } from "@/trpc/init";
+
+import { sortValues } from "../searchParams";
 
 export const productsRouter = createTRPCRouter({
   getOne: baseProcedure
@@ -15,8 +16,8 @@ export const productsRouter = createTRPCRouter({
       })
     )
     .query(async ({ ctx, input }) => {
-      const headers = await getHeaders()
-      const session = await ctx.payload.auth({ headers })
+      const headers = await getHeaders();
+      const session = await ctx.payload.auth({ headers });
 
       const product = await ctx.payload.findByID({
         collection: "products",
@@ -25,9 +26,9 @@ export const productsRouter = createTRPCRouter({
       });
 
       // if logged user buy one product can't buy the same product 2end time
-      let isPurchased = false
+      let isPurchased = false;
 
-      if (session.user) { 
+      if (session.user) {
         const order = await ctx.payload.find({
           collection: "orders",
           pagination: false,
@@ -36,19 +37,62 @@ export const productsRouter = createTRPCRouter({
             and: [
               {
                 product: {
-                  equals: input.id
-                }
+                  equals: input.id,
+                },
               },
               {
                 user: {
-                  equals: session.user.id
-                }
-              }
-            ]
+                  equals: session.user.id,
+                },
+              },
+            ],
+          },
+        });
+
+        isPurchased = !!order.docs[0];
+      }
+
+      const reviews = await ctx.payload.find({
+        collection: "reviews",
+        pagination: false,
+        where: {
+          product: {
+            equals: input.id,
+          },
+        },
+      });
+
+      const reviewRating =
+        reviews.docs.length > 0
+          ? reviews.docs.reduce((acc, review) => acc + review.rating, 0) /
+            reviews.totalDocs
+          : 0;
+
+      const ratingDistribution: Record<number, number> = {
+        5: 0,
+        4: 0,
+        3: 0,
+        2: 0,
+        1: 0,
+      };
+
+      if (reviews.totalDocs > 0) {
+        reviews.docs.forEach((review) => {
+          const rating = review.rating;
+
+          if (rating >= 1 && rating <= 5) {
+            ratingDistribution[rating] = (ratingDistribution[rating] || 0) + 1;
           }
         });
 
-        isPurchased = !!order.docs[0]
+        Object.keys(ratingDistribution).forEach((key) => {
+          const rating = Number(key);
+          const count = ratingDistribution[rating] || 0;
+
+          ratingDistribution[rating] = Math.round(
+            (count / reviews.totalDocs) * 100
+          );
+        });
       }
 
       return {
@@ -56,6 +100,9 @@ export const productsRouter = createTRPCRouter({
         isPurchased,
         image: product.image as Media | null,
         tenant: product.tenant as Tenant & { image: Media | null },
+        reviewRating,
+        reviewCount: reviews.totalDocs,
+        ratingDistribution,
       };
     }),
   getMany: baseProcedure
@@ -150,9 +197,36 @@ export const productsRouter = createTRPCRouter({
         limit: input.limit,
       });
 
+      // Using Promise.all to process all documents in parallel and safely await their asynchronous operations
+      const dataWithSummarizedReviews = await Promise.all(
+        data.docs.map(async (doc) => {
+          const reviewsData = await ctx.payload.find({
+            collection: "reviews",
+            pagination: false,
+            where: {
+              product: {
+                equals: doc.id,
+              },
+            },
+          });
+
+          return {
+            ...doc,
+            reviewCount: reviewsData.totalDocs,
+            reviewRating:
+              reviewsData.docs.length === 0
+                ? 0
+                : reviewsData.docs.reduce(
+                    (acc, review) => acc + review.rating,
+                    0
+                  ) / reviewsData.totalDocs,
+          };
+        })
+      );
+
       return {
         ...data,
-        docs: data.docs.map((doc) => ({
+        docs: dataWithSummarizedReviews.map((doc) => ({
           ...doc,
           image: doc.image as Media | null,
           tenant: doc.tenant as Tenant & { image: Media | null },
