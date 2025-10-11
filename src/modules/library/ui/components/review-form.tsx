@@ -1,3 +1,4 @@
+import { toast } from "sonner";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -17,7 +18,6 @@ import {
 
 import { ReviewGetOneOutput } from "@/modules/reviews/types";
 import { reviewSchema, reviewSchemaType } from "@/modules/reviews/schema";
-import { toast } from "sonner";
 
 interface Props {
   productId: string;

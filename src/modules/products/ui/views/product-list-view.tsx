@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+
 import { ProductSort } from "../components/product-sort";
 import { ProductFilters } from "../components/product-filters";
 import { ProductList, ProductListSkeleton } from "../components/product-list";

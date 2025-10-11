@@ -6,6 +6,7 @@ import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
 import { useTRPC } from "@/trpc/client";
 import { DEFAULT_LIMIT } from "@/constants";
 import { Button } from "@/components/ui/button";
+
 import { ProductCard, ProductCardSkeleton } from "./product-card";
 
 export const ProductList = () => {

@@ -23,6 +23,9 @@ export const productsRouter = createTRPCRouter({
         collection: "products",
         id: input.id,
         depth: 2, // Without this is not working
+        select: { 
+          content: false,
+        }
       });
 
       // if logged user buy one product can't buy the same product 2end time
@@ -195,6 +198,9 @@ export const productsRouter = createTRPCRouter({
         sort,
         page: input.cursor,
         limit: input.limit,
+        select: { 
+          content: false,
+        }
       });
 
       // Using Promise.all to process all documents in parallel and safely await their asynchronous operations

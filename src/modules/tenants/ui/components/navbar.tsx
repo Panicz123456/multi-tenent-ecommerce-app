@@ -3,12 +3,12 @@
 import Link from "next/link";
 import Image from "next/image";
 import dynamic from "next/dynamic";
+import { ShoppingCartIcon } from "lucide-react";
 import { useSuspenseQuery } from "@tanstack/react-query";
 
 import { useTRPC } from "@/trpc/client";
 import { generateTenantUrl } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { ShoppingCartIcon } from "lucide-react";
 
 const CheckoutButton = dynamic(
   () =>
