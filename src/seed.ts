@@ -1,6 +1,8 @@
 import { getPayload } from "payload";
 import config from "@payload-config";
 
+import { stripe } from "./lib/stripe";
+
 const categories = [
   {
     name: "All",
@@ -140,29 +142,33 @@ const categories = [
 const seed = async () => {
   const payload = await getPayload({ config });
 
-  const adminTenant = await payload.create({ 
+  const adminAccount = await stripe.accounts.create({});
+
+  // Create admin tenant
+  const adminTenant = await payload.create({
     collection: "tenants",
-    data: { 
+    data: {
       name: "admin",
       slug: "admin",
-      stripeAccountId: "admin"
-    }
-  })
+      stripeAccountId: adminAccount.id,
+    },
+  });
 
-  await payload.create({ 
+  // Create admin user
+  await payload.create({
     collection: "users",
-    data: { 
-      email: "test@test.com",
-      password: "test123",
-      roles: ['super-admin'],
-      username: "test",
+    data: {
+      email: "admin@demo.com",
+      password: "demo",
+      roles: ["super-admin"],
+      username: "admin",
       tenants: [
-        { 
-          tenant: adminTenant.id
-        }
-      ]
-    }
-  })
+        {
+          tenant: adminTenant.id,
+        },
+      ],
+    },
+  });
 
   for (const category of categories) {
     const parentCategory = await payload.create({
@@ -193,6 +199,6 @@ try {
   console.log("Seeding completed successfully");
   process.exit(0);
 } catch (error) {
-  console.error("Error durning seeding: ", error);
-  process.exit(1);
+  console.error("Error during seeding:", error);
+  process.exit(1); // Exit with error code
 }

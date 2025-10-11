@@ -1,4 +1,9 @@
-import { parseAsString, createLoader, parseAsArrayOf, parseAsStringLiteral } from "nuqs/server";
+import {
+  parseAsString,
+  createLoader,
+  parseAsArrayOf,
+  parseAsStringLiteral
+} from "nuqs/server";
 
 export const sortValues = ["curated", "trending", "hot_and_new",] as const;
 

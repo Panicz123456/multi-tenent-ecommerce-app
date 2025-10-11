@@ -1,8 +1,8 @@
 import Link from "next/link";
+import { ShoppingCartIcon } from "lucide-react";
 
 import { generateTenantUrl } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { ShoppingCartIcon } from "lucide-react";
 
 interface Props {
   slug: string;

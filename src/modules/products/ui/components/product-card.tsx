@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { StarIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
+
 import { formatCurrency, generateTenantUrl } from "@/lib/utils";
 
 interface ProductCardProps {

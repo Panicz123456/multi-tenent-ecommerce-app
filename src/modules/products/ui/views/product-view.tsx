@@ -5,8 +5,8 @@ import { toast } from "sonner";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 import { Fragment, useState } from "react";
-import { CheckCheckIcon, LinkIcon, StarIcon } from "lucide-react";
 import { useSuspenseQuery } from "@tanstack/react-query";
+import { CheckCheckIcon, LinkIcon, StarIcon } from "lucide-react";
 
 import { useTRPC } from "@/trpc/client";
 import { Button } from "@/components/ui/button";

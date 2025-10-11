@@ -1,7 +1,7 @@
+import Link from "next/link";
 import Image from "next/image";
 
 import { cn, formatCurrency } from "@/lib/utils";
-import Link from "next/link";
 
 interface Props {
   isLast?: boolean;
