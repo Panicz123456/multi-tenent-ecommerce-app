@@ -28,6 +28,9 @@ export default buildConfig({
     importMap: {
       baseDir: path.resolve(dirname),
     },
+    components: {
+      beforeNavLinks: ["@/components/stripe-verify#StripeVerify"],
+    },
   },
   collections: [
     Tags,
@@ -58,7 +61,7 @@ export default buildConfig({
       tenantsArrayField: {
         includeDefaultField: false,
       },
-      userHasAccessToAllTenants: (user) => isSuperAdmin(user)
+      userHasAccessToAllTenants: (user) => isSuperAdmin(user),
     }),
   ],
 });
