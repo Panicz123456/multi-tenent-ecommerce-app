@@ -6,6 +6,7 @@ import Image from "next/image";
 import dynamic from "next/dynamic";
 import { Fragment, useState } from "react";
 import { useSuspenseQuery } from "@tanstack/react-query";
+import { RichText } from "@payloadcms/richtext-lexical/react";
 import { CheckCheckIcon, LinkIcon, StarIcon } from "lucide-react";
 
 import { useTRPC } from "@/trpc/client";
@@ -106,7 +107,7 @@ export const ProductView = ({ productId, tenantSlug }: Props) => {
 
             <div className="p-6">
               {data.description ? (
-                <p>{data.description}</p>
+                <RichText data={data.description} />
               ) : (
                 <p className="font-medium text-muted-foreground italic">
                   No description
@@ -137,8 +138,7 @@ export const ProductView = ({ productId, tenantSlug }: Props) => {
                         setIsCopied(false);
                       }, 1000);
                     }}
-                    disabled={isCopied}
-                  >
+                    disabled={isCopied}>
                     {isCopied ? <CheckCheckIcon /> : <LinkIcon />}
                   </Button>
                 </div>
@@ -178,6 +178,23 @@ export const ProductView = ({ productId, tenantSlug }: Props) => {
               </div>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export const ProductViewSkeleton = () => {
+  return (
+    <div className="px-4 lg:px-12 py-10">
+      <div className="border rounded-sm bg-white overflow-hidden">
+        <div className="relative aspect-[3.9] border-b">
+          <Image
+            src="/placeholder.png"
+            alt="Placeholder"
+            fill
+            className="object-cover"
+          />
         </div>
       </div>
     </div>
