@@ -166,7 +166,6 @@ const seed = async () => {
       ],
     },
   });
-
   for (const category of categories) {
     const parentCategory = await payload.create({
       collection: "categories",

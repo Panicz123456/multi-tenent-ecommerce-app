@@ -150,7 +150,21 @@ export interface Product {
   id: string;
   tenant?: (string | null) | Tenant;
   name: string;
-  description?: string | null;
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   /**
    * Price in USD
    */
@@ -162,7 +176,29 @@ export interface Product {
   /**
    * Protected content only visible to customers after purchase. Add Product documentation, downloadable files, getting started guide, and bonus materials. Support Markdown formatting
    */
-  content?: string | null;
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Check if you want to hide this product
+   */
+  isArchived?: boolean | null;
+  /**
+   * Check if you want hide product for public storefront
+   */
+  isPrivate?: boolean | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -485,6 +521,8 @@ export interface ProductsSelect<T extends boolean = true> {
   image?: T;
   refoundPolicy?: T;
   content?: T;
+  isArchived?: T;
+  isPrivate?: T;
   updatedAt?: T;
   createdAt?: T;
 }

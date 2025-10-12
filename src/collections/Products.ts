@@ -26,7 +26,7 @@ export const Products: CollectionConfig = {
     },
     {
       name: "description",
-      type: "text",
+      type: "richText",
     },
     {
       name: "price",
@@ -61,11 +61,28 @@ export const Products: CollectionConfig = {
     },
     {
       name: "content",
-      // TODO: Change to RichText
-      type: "textarea",
+      type: "richText",
       admin: {
         description:
           "Protected content only visible to customers after purchase. Add Product documentation, downloadable files, getting started guide, and bonus materials. Support Markdown formatting",
+      },
+    },
+    {
+      name: "isArchived",
+      label: "Archive",
+      defaultValue: false,
+      type: "checkbox",
+      admin: {
+        description: "Check if you want to hide this product",
+      },
+    },
+    {
+      name: "isPrivate",
+      label: "Private",
+      defaultValue: false,
+      type: "checkbox",
+      admin: {
+        description: "Check if you want hide product for public storefront",
       },
     },
   ],
