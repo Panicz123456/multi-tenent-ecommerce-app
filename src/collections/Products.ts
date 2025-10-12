@@ -16,6 +16,7 @@ export const Products: CollectionConfig = {
   },
   admin: {
     useAsTitle: "name",
+    description: "You must verify your account before creating product",
   },
   fields: [
     {
@@ -58,14 +59,14 @@ export const Products: CollectionConfig = {
       options: ["30-day", "14-day", "7-day", "3-day", "1-day", "no-refunds"],
       defaultValue: "30-day",
     },
-    {  
+    {
       name: "content",
       // TODO: Change to RichText
       type: "textarea",
-      admin: { 
+      admin: {
         description:
-          "Protected content only visible to customers after purchase. Add Product documentation, downloadable files, getting started guide, and bonus materials. Support Markdown formatting"
-      }
-    }
+          "Protected content only visible to customers after purchase. Add Product documentation, downloadable files, getting started guide, and bonus materials. Support Markdown formatting",
+      },
+    },
   ],
 };

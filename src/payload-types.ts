@@ -141,6 +141,8 @@ export interface Tag {
   createdAt: string;
 }
 /**
+ * You must verify your account before creating product
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "products".
  */
@@ -272,6 +274,10 @@ export interface Order {
    * Stripe Checkout session associated with this order
    */
   stripeCheckoutSessionId: string;
+  /**
+   * Stripe account associated with this order
+   */
+  stripeAccountId?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -436,6 +442,7 @@ export interface OrdersSelect<T extends boolean = true> {
   user?: T;
   product?: T;
   stripeCheckoutSessionId?: T;
+  stripeAccountId?: T;
   updatedAt?: T;
   createdAt?: T;
 }
