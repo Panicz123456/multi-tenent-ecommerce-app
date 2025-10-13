@@ -1,4 +1,4 @@
-import { cookies as nextCookies } from "next/headers";
+import { cookies as getCookies } from "next/headers";
 
 interface Props {
   prefix: string;
@@ -6,11 +6,15 @@ interface Props {
 }
 
 export const generateAuthCookie = async ({ prefix, value }: Props) => {
-  const cookies = await nextCookies();
+  const cookies = await getCookies();
+
   cookies.set({
     name: `${prefix}-token`,
-    value: value,
+    value,
     httpOnly: true,
     path: "/",
+    sameSite: "none",
+    domain: process.env.NEXT_PUBLIC_ROOT_DOMAIN,
+    secure: process.env.NODE_ENV === 'production'
   });
 };

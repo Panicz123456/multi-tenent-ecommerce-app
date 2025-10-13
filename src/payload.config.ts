@@ -42,7 +42,6 @@ export default buildConfig({
     Products,
     Categories,
   ],
-  cookiePrefix: "funroad",
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || "",
   typescript: {
