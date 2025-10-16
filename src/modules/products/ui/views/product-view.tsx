@@ -107,6 +107,7 @@ export const ProductView = ({ productId, tenantSlug }: Props) => {
 
             <div className="p-6">
               {data.description ? (
+                // @ts-expect-error - content may be serialized JSON; RichText parses it
                 <RichText data={data.description} />
               ) : (
                 <p className="font-medium text-muted-foreground italic">

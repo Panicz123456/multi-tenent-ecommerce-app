@@ -8,11 +8,15 @@ import { SearchInput } from "./search-input";
 import { BreadcrumbNavigation } from "./breadcrumb-navigator";
 
 import { useTRPC } from "@/trpc/client";
+
 import { DEFAULT_BG_COLOR } from "@/modules/home/constants";
+import { useProductFilters } from "@/modules/products/hooks/use-product-filters";
 
 export const SearchFilters = () => {
   const trpc = useTRPC();
   const { data } = useSuspenseQuery(trpc.categories.getMany.queryOptions());
+  const [filters, setFilters] = useProductFilters();
+
 
   const params = useParams();
   const categoryParam = params.category as string | undefined;
@@ -37,7 +41,7 @@ export const SearchFilters = () => {
       style={{
         backgroundColor: activeCategoryColor,
       }}>
-      <SearchInput />
+        <SearchInput defaultValue={filters.search} onChange={(value) => setFilters({search: value})} />
       <div className="hidden lg:block">
         <Categories data={data} />
       </div>
@@ -57,7 +61,7 @@ export const SearchFiltersLoading = () => {
       style={{
         backgroundColor: "#F5F5F5",
       }}>
-      <SearchInput disable />
+        <SearchInput disable />
       <div className="hidden lg:block">
         <div className="h-11" />
       </div>
