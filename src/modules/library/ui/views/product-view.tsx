@@ -1,5 +1,6 @@
 "use client";
 
+
 import Link from "next/link";
 import { ArrowLeftIcon } from "lucide-react";
 import { useSuspenseQuery } from "@tanstack/react-query";
@@ -45,6 +46,7 @@ export const ProductView = ({ productId }: Props) => {
           </div>
           <div className="col-span-5">
             {data.content ? (
+              // @ts-expect-error -  may be serialized JSON; RichText handles parsing
               <RichText data={data.content} />
             ) : (
               <p className="font-medium italic text-muted-foreground">
