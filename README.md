@@ -1,36 +1,87 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+💸 Multi-Tenant E-Commerce App – Modern Creator Storefront Platform
+A full-stack, real multi-tenant e-commerce application where creators can host their own storefronts, sell digital products, and get paid seamlessly through **Stripe Connect**.
 
-## Getting Started
+Each creator gets a personalized subdomain, handles their own products, and customers can review, purchase, and access their personal libraries — all managed through a powerful **Payload CMS** backend and an elegant **Next.js 15** frontend.
 
-First, run the development server:
+Includes features like file delivery, automatic platform fees, and an **admin dashboard** with robust role-based access control (RBAC). Built as a truly scalable SaaS-style foundation for digital marketplaces.
+
+---
+
+## 🛠️ Tech Stack
+
+### Frameworks & Core
+- **Next.js 15**
+- **React 19**
+- **Tailwind CSS v4**
+- **Payload CMS (Headless CMS)**
+- **TypeScript**
+
+### Backend & APIs
+- **Payload Plugins:**  
+  - `@payloadcms/plugin-multi-tenant` – Multi-tenant architecture  
+  - `@payloadcms/db-mongodb` – MongoDB integration  
+  - `@payloadcms/next` – Next.js + Payload hybrid app  
+  - `@payloadcms/storage-vercel-blob` – File storage  
+- **tRPC v11** – End-to-end type-safe API layer  
+- **TanStack Query v5** – Data fetching & caching  
+- **Superjson** – Data serialization  
+- **Zod** – Validation & schema inference  
+
+### Payments
+- **Stripe Connect** – Marketplace payments & automatic fee routing  
+
+### UI & Components
+- **shadcn/ui** (Radix UI primitives)
+- **Lucide React** – Icon set  
+- **cmdk** – Command palette  
+- **Embla Carousel** – Smooth product carousels  
+- **Recharts** – Dashboard analytics  
+
+### Utilities & Tooling
+- `react-hook-form`, `clsx`, `tailwind-merge`, `class-variance-authority`
+- `zustand` – Lightweight state management  
+- `date-fns` – Date utilities  
+- `sonner` – Elegant toast notifications  
+
+---
+
+## 📦 Key Dependencies
+| Package | Version |
+|----------|----------|
+| `next` | 15.2.4 |
+| `react` | ^19.0.0 |
+| `payload` | ^3.54.0 |
+| `@payloadcms/plugin-multi-tenant` | 3.59.1 |
+| `@tanstack/react-query` | 5.72.1 |
+| `@trpc/server` | 11.0.3 |
+| `stripe` | 18.0.0 |
+| `tailwindcss` | ^4 |
+| `zod` | 3.24.2 |
+
+---
+
+## ⚙️ Features
+- 🏪 **Multi-tenant store system** – Each creator has their own storefront  
+- 💳 **Stripe Connect integration** – Handle payouts and fees automatically  
+- 📁 **Digital file delivery** – Secure file storage via Vercel Blob  
+- ⭐ **Product reviews & personal libraries**  
+- 🔐 **Admin dashboard** – Full RBAC support  
+- 🧠 **Headless CMS with Payload** – Custom collections, fields, and hooks  
+- ⚡ **Modern developer workflow** – Type-safe, scalable, and cloud-ready  
+
+---
+
+## 🚀 Getting Started
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+# Install dependencies
+bun install
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+# Run database migrations
+bun run db:fresh
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+# Seed the database
+bun run db:seed
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# Start the dev server
+bun run dev
